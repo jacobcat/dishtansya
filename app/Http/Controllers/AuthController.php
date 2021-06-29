@@ -81,7 +81,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+        ], 201);
     }
 
     /**
@@ -96,7 +96,7 @@ class AuthController extends Controller
             $this->validate($request, [
                 'email' => 'required|email|unique:users',
                 'password' => 'required'
-            ]);
+            ], $this->messages());
         } catch (ValidationException $e) {
             $error_msg = "";
             foreach($e->errors() as $error) {
@@ -116,6 +116,7 @@ class AuthController extends Controller
         } catch(\Exception $e) {
             return response()->json(['message' => 'Error creating user'], 400);
         }
+
     }
 
     /**

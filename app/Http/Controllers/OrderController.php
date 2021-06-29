@@ -34,7 +34,7 @@ class OrderController extends Controller
             $this->validate($request, [
                 'product_id' => 'required|exists:products,id',
                 'quantity' => 'required'
-            ]);
+            ], $this->messages());
         } catch (ValidationException $e) {
             $error_msg = "";
             foreach($e->errors() as $error) {
